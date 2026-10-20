@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="tg">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>TaskFlow — Todo App</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <div class="app">
+        <header class="header">
+            <div class="brand">
+                <div class="logo">✓</div>
+                <div>
+                    <h1>TaskFlow</h1>
+                    <p>Тартиб дар вазифаҳо, оромӣ дар фикр</p>
+                </div>
+            </div>
+            <div class="header-actions"><button id="themeBtn" title="Тағйири намуди зоҳирӣ">☼ / ☾</button><button
+                    id="clearDoneBtn">Тоза кардани иҷрошудаҳо</button></div>
+        </header>
+        <section class="hero">
+            <div>
+                <div class="eyebrow">ПАНЕЛИ МАҲСУЛНОКӢ</div>
+                <h2>Салом! Биё корҳоро<br>як-як анҷом диҳем.</h2>
+                <p>Вазифаҳоятро сабт кун, пешрафтатро пайгирӣ намо ва ҳар рӯз як қадам пеш рав.</p>
+                <div class="date-label" id="todayLabel"></div>
+            </div>
+            <div class="progress-wrap">
+                <div class="progress-head"><span>Пешрафти имрӯз</span><b id="progressText">0%</b></div>
+                <div class="progress-track">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+        </section>
+        <section class="stats">
+            <div class="stat">
+                <div class="stat-icon">☷</div>
+                <div><small>Ҳамаи вазифаҳо</small><strong id="totalStat">0</strong></div>
+            </div>
+            <div class="stat">
+                <div class="stat-icon">✓</div>
+                <div><small>Иҷрошуда</small><strong id="doneStat">0</strong></div>
+            </div>
+            <div class="stat">
+                <div class="stat-icon">◷</div>
+                <div><small>Дар интизор</small><strong id="pendingStat">0</strong></div>
+            </div>
+            <div class="stat">
+                <div class="stat-icon">✦</div>
+                <div><small>Фоизи иҷро</small><strong id="percentStat">0%</strong></div>
+            </div>
+        </section>
+        <main class="main-grid">
+            <section class="panel">
+                <div class="panel-head">
+                    <div>
+                        <h3>Вазифаҳои ман</h3>
+                        <p>Нақша соз, иҷро кун ва пешрафтро бин</p>
+                    </div><span class="count-pill" id="visibleCount">0 вазифа</span>
+                </div>
+                <form class="add-form" id="addForm">
+                    <label class="field-label" for="taskInput">Вазифаи нав</label>
+                    <div class="input-row"><input class="input" id="taskInput" maxlength="140"
+                            placeholder="Масалан: Дарси JavaScript-ро такрор кардан…" autocomplete="off"
+                            required><button class="primary" type="submit">＋ Илова</button></div>
+                    <div class="form-options">
+                        <div><label class="field-label" for="categoryInput">Категория</label><select id="categoryInput">
+                                <option value="study">📘 Таҳсил</option>
+                                <option value="work">💼 Кор</option>
+                                <option value="personal">🌱 Шахсӣ</option>
+                            </select></div>
+                        <div><label class="field-label" for="priorityInput">Афзалият</label><select id="priorityInput">
+                                <option value="medium">Миёна</option>
+                                <option value="high">Баланд</option>
+                                <option value="low">Паст</option>
+                            </select></div>
+                    </div>
+                </form>
+                <div class="toolbar">
+                    <div class="search"><span>⌕</span><input class="input" id="searchInput"
+                            placeholder="Ҷустуҷӯи вазифа…"></div>
+                    <div class="filters" id="filters"><button class="filter-btn active"
+                            data-filter="all">Ҳама</button><button class="filter-btn" data-filter="pending">Дар
+                            интизор</button><button class="filter-btn" data-filter="done">Иҷрошуда</button></div>
+                </div>
+                <div class="task-list" id="taskList"></div>
+            </section>
+            <aside class="side">
+                <section class="panel">
+                    <div class="panel-head">
+                        <div>
+                            <h3>Хулосаи корҳо</h3>
+                            <p>Вазифаҳо аз рӯйи категория</p>
+                        </div><span>◈</span>
+                    </div>
+                    <div class="side-body">
+                        <div class="focus-card"><small>МАНТИҚИ МАҲСУЛНОКӢ</small>
+                            <h4>Пешравӣ аз қадамҳои хурд сар мешавад.</h4>
+                            <p>Вазифаи калонро ба қисмҳои хурд ҷудо кун ва ҳар рӯз якеро анҷом деҳ.</p>
+                        </div>
+                        <div class="category-row">
+                            <div class="cat-left"><span class="dot study"></span>Таҳсил</div><b id="studyCount">0</b>
+                        </div>
+                        <div class="category-row">
+                            <div class="cat-left"><span class="dot work"></span>Кор</div><b id="workCount">0</b>
+                        </div>
+                        <div class="category-row">
+                            <div class="cat-left"><span class="dot personal"></span>Шахсӣ</div><b
+                                id="personalCount">0</b>
+                        </div>
+                        <div class="tips"><b>💡 Маслиҳати рӯз</b>
+                            <p id="tipText">Аввал вазифаи муҳимтаринро интихоб кун. Пас аз анҷом додан, онро ҳамчун
+                                иҷрошуда қайд
+                                намо.</p>
+                        </div>
+                    </div>
+                </section>
+                <section class="panel">
+                    <div class="panel-head">
+                        <div>
+                            <h3>Миёнабурҳо</h3>
+                            <p>Идоракунии зуд</p>
+                        </div>
+                    </div>
+                    <div class="side-body" style="display:grid;gap:8px"><button id="showPending">◷ Танҳо вазифаҳои
+                            боқимонда</button><button id="showAll">☷ Намоиши ҳамаи вазифаҳо</button><button
+                            id="exportBtn">↓ Содироти
+                            вазифаҳо (.json)</button><button id="demoBtn">✦ Иловаи мисолҳо</button></div>
+                </section>
+            </aside>
+        </main>
+        <footer class="footer">TaskFlow · Лоиҳаи таълимӣ бо HTML, CSS ва JavaScript · Маълумот дар браузери шумо нигоҳ
+            дошта
+            мешавад</footer>
+    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <div class="modal-backdrop" id="editModal" role="dialog" aria-modal="true" aria-labelledby="editTitle">
+        <form class="modal" id="editForm">
+            <h3 id="editTitle">Таҳрири вазифа</h3><label for="editTaskInput">Номи вазифа</label><input
+                id="editTaskInput" maxlength="140" required><label for="editCategory">Категория</label><select
+                id="editCategory">
+                <option value="study">📘 Таҳсил</option>
+                <option value="work">💼 Кор</option>
+                <option value="personal">🌱 Шахсӣ</option>
+            </select><label for="editPriority">Афзалият</label><select id="editPriority">
+                <option value="high">Баланд</option>
+                <option value="medium">Миёна</option>
+                <option value="low">Паст</option>
+            </select>
+            <div class="modal-actions"><button type="button" id="cancelEdit">Бекор кардан</button><button
+                    class="primary" type="submit">Нигоҳ доштан</button></div>
+        </form>
+    </div>
+    <script src="script.js"></script>
+
+</body>
+
+</html>
